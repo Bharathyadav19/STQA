@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ST&QA Professional Testing Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <button class="nav-btn" id="backBtn" style="display:none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back
+                </button>
+                <div class="progress-indicator" id="progressIndicator" style="display:none;">
+                    Phase <span id="currentStep">1</span> of <span id="totalSteps">2</span>
+                </div>
+                <div class="testing-type-badge" id="testingTypeBadge" style="display:none;">
+                    <span id="selectedTestingType"></span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Header -->
+        <header class="header">
+            <h1>🔬 ST&QA Testing Platform</h1>
+            <p>Software Testing & Quality Assurance • AI-Powered • Real-Time Analysis</p>
+        </header>
+
+        <!-- Step 1: Home Screen -->
+        <div class="screen active" id="homeScreen">
+            <div class="welcome-section">
+                <h2>Professional Testing & Quality Assurance</h2>
+                <p>AI-powered automatic code analysis with multiple testing methodologies</p>
+            </div>
+            
+            <div class="options-grid">
+                <div class="option-card" onclick="startCustomFlow()">
+                    <div class="card-icon">🔧</div>
+                    <h3>Analyze Your Code</h3>
+                    <p>Upload or paste your code for comprehensive analysis</p>
+                    <ul class="feature-list">
+                        <li>✓ 8 Testing Types Available</li>
+                        <li>✓ AI-Powered Analysis</li>
+                        <li>✓ Real-Time Results</li>
+                        <li>✓ Detailed Reports</li>
+                    </ul>
+                    <button class="btn-primary">Start Analysis</button>
+                </div>
+                
+                <div class="option-card" onclick="showTemplates()">
+                    <div class="card-icon">📦</div>
+                    <h3>Test Example Projects</h3>
+                    <p>Pre-built code samples with automated testing</p>
+                    <ul class="feature-list">
+                        <li>✓ Login System Testing</li>
+                        <li>✓ Calculator Validation</li>
+                        <li>✓ API Testing</li>
+                        <li>✓ Instant Analysis</li>
+                    </ul>
+                    <button class="btn-secondary">Browse Examples</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Templates Screen -->
+        <div class="screen" id="templatesScreen">
+            <div class="welcome-section">
+                <h2>Pre-built Testing Scenarios</h2>
+                <p>Select a scenario for instant ST&QA analysis</p>
+            </div>
+            
+            <div class="templates-grid">
+                <div class="template-card" onclick="loadTemplate('login')">
+                    <div class="template-icon">🔐</div>
+                    <h3>Login System</h3>
+                    <p><strong>Complete Authentication Testing</strong></p>
+                    <div class="template-tests">
+                        <span class="test-badge">Security Testing</span>
+                        <span class="test-badge">Input Validation</span>
+                        <span class="test-badge">Error Handling</span>
+                    </div>
+                    <button class="btn-primary">Analyze Now</button>
+                </div>
+
+                <div class="template-card" onclick="loadTemplate('calculator')">
+                    <div class="template-icon">🧮</div>
+                    <h3>Calculator Functions</h3>
+                    <p><strong>Mathematical Operations Testing</strong></p>
+                    <div class="template-tests">
+                        <span class="test-badge">Boundary Testing</span>
+                        <span class="test-badge">Edge Cases</span>
+                        <span class="test-badge">Type Validation</span>
+                    </div>
+                    <button class="btn-primary">Analyze Now</button>
+                </div>
+
+                <div class="template-card" onclick="loadTemplate('api')">
+                    <div class="template-icon">🌐</div>
+                    <h3>API Endpoints</h3>
+                    <p><strong>RESTful API Testing</strong></p>
+                    <div class="template-tests">
+                        <span class="test-badge">Integration Testing</span>
+                        <span class="test-badge">Response Validation</span>
+                        <span class="test-badge">Error Codes</span>
+                    </div>
+                    <button class="btn-primary">Analyze Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing Type Selection Screen -->
+        <div class="screen" id="testingTypeScreen">
+            <div class="testing-type-container">
+                <h2>🎯 Select Testing Type</h2>
+                <p>Choose the testing methodology for code analysis</p>
+                
+                <div class="help-box">
+                    💡 <strong>Choose Wisely:</strong> Each testing type focuses on different aspects of quality assurance. Select based on your testing goals.
+                </div>
+
+                <div class="testing-types-grid">
+                    <div class="testing-type-card" onclick="selectTestingType('blackbox')">
+                        <div class="type-icon">📦</div>
+                        <h3>Black Box Testing</h3>
+                        <p>Test functionality without knowing internal code</p>
+                        <ul class="type-features">
+                            <li>Input/Output validation</li>
+                            <li>Functional requirements</li>
+                            <li>Boundary value analysis</li>
+                            <li>User perspective testing</li>
+                        </ul>
+                        <button class="btn-primary">Select</button>
+                    </div>
+
+                    <div class="testing-type-card" onclick="selectTestingType('whitebox')">
+                        <div class="type-icon">🔍</div>
+                        <h3>White Box Testing</h3>
+                        <p>Test internal code structure and logic</p>
+                        <ul class="type-features">
+                            <li>Code coverage analysis</li>
+                            <li>Logic flow testing</li>
+                            <li>Statement coverage</li>
+                            <li>Path analysis</li>
+                        </ul>
+                        <button class="btn-primary">Select</button>
+                    </div>
+
+                    <div class="testing-type-card" onclick="selectTestingType('security')">
+                        <div class="type-icon">🔒</div>
+                        <h3>Security Testing</h3>
+                        <p>Find vulnerabilities and security weaknesses</p>
+                        <ul class="type-features">
+                            <li>SQL Injection detection</li>
+                            <li>XSS vulnerability scan</li>
+                            <li>Authentication testing</li>
+                            <li>OWASP Top 10 check</li>
+                        </ul>
+                        <button class="btn-primary">Select</button>
+                    </div>
+
+                    <div class="testing-type-card" onclick="selectTestingType('performance')">
+                        <div class="type-icon">⚡</div>
+                        <h3>Performance Testing</h3>
+                        <p>Analyze speed and efficiency</p>
+                        <ul class="type-features">
+                            <li>Execution speed analysis</li>
+                            <li>Algorithm complexity</li>
+                            <li>Memory usage check</li>
+                            <li>Bottleneck detection</li>
+                        </ul>
+                        <button class="btn-primary">Select</button>
+                    </div>
+
+                    <div class="testing-type-card" onclick="selectTestingType('integration')">
+                        <div class="type-icon">🔗</div>
+                        <h3>Integration Testing</h3>
+                        <p>Test component interactions</p>
+                        <ul class="type-features">
+                            <li>Module integration</li>
+                            <li>API connectivity</li>
+                            <li>Data flow validation</li>
+                            <li>Interface testing</li>
+                        </ul>
+                        <button class="btn-primary">Select</button>
+                    </div>
+
+                    <div class="testing-type-card" onclick="selectTestingType('regression')">
+                        <div class="type-icon">🔄</div>
+                        <h3>Regression Testing</h3>
+                        <p>Ensure changes don't break features</p>
+                        <ul class="type-features">
+                            <li>Code change impact</li>
+                            <li>Backward compatibility</li>
+                            <li>Feature preservation</li>
+                            <li>Bug reoccurrence check</li>
+                        </ul>
+                        <button class="btn-primary">Select</button>
+                    </div>
+
+                    <div class="testing-type-card" onclick="selectTestingType('usability')">
+                        <div class="type-icon">👤</div>
+                        <h3>Usability Testing</h3>
+                        <p>Evaluate user experience</p>
+                        <ul class="type-features">
+                            <li>User flow analysis</li>
+                            <li>Error message clarity</li>
+                            <li>Input validation UX</li>
+                            <li>Accessibility check</li>
+                        </ul>
+                        <button class="btn-primary">Select</button>
+                    </div>
+
+                    <div class="testing-type-card highlighted" onclick="selectTestingType('comprehensive')">
+                        <div class="type-icon">🎯</div>
+                        <h3>Comprehensive Testing</h3>
+                        <p>All testing types combined</p>
+                        <ul class="type-features">
+                            <li>All testing types</li>
+                            <li>360° code analysis</li>
+                            <li>Complete coverage</li>
+                            <li>Detailed reports</li>
+                        </ul>
+                        <button class="btn-primary">Select (Recommended)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Analysis Screen -->
+        <div class="screen" id="codeAnalysisScreen">
+            <div class="analysis-container">
+                <h2>📝 Code Analysis</h2>
+                <p id="testingTypeDescription">Paste your code for comprehensive analysis</p>
+                
+                <div class="help-box" id="testingTypeHelp">
+                    🤖 <strong>AI-Powered:</strong> System will automatically analyze based on selected testing type. No manual testing needed!
+                </div>
+
+                <div class="code-input-section">
+                    <div class="input-header">
+                        <label>Paste Your Code:</label>
+                        <select id="codeLanguage">
+                            <option value="javascript">JavaScript</option>
+                            <option value="python">Python</option>
+                            <option value="java">Java</option>
+                            <option value="html">HTML/CSS</option>
+                        </select>
+                    </div>
+                    <textarea id="codeInput" placeholder="// Paste your code here for analysis...
+function login(username, password) {
+    if (!username || !password) {
+        return { success: false, error: 'Missing credentials' };
+    }
+    // ... your code
+}" rows="20"></textarea>
+                    
+                    <div class="action-buttons">
+                        <button class="btn-primary btn-large" onclick="runCompleteAnalysis()">
+                            🚀 Run <span id="analysisButtonText">Complete</span> Analysis
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analysis Results Container -->
+                <div class="analysis-results-container" id="analysisResultsContainer" style="display:none;">
+                    
+                    <!-- Quality Dashboard -->
+                    <div class="quality-dashboard">
+                        <div class="quality-score-card">
+                            <h3>Overall Quality Score</h3>
+                            <div class="score-ring">
+                                <svg width="200" height="200">
+                                    <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="15"/>
+                                    <circle id="qualityCircle" cx="100" cy="100" r="90" fill="none" stroke="#10b981" stroke-width="15" 
+                                            stroke-dasharray="565" stroke-dashoffset="565" 
+                                            transform="rotate(-90 100 100)" stroke-linecap="round"/>
+                                </svg>
+                                <div class="score-text">
+                                    <div class="score-value" id="qualityScore">0</div>
+                                    <div class="score-grade" id="qualityGrade">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="metrics-mini-grid">
+                            <div class="mini-metric">
+                                <div class="mini-metric-value" id="securityScore">0</div>
+                                <div class="mini-metric-label">🔒 Security</div>
+                            </div>
+                            <div class="mini-metric">
+                                <div class="mini-metric-value" id="performanceScore">0</div>
+                                <div class="mini-metric-label">⚡ Performance</div>
+                            </div>
+                            <div class="mini-metric">
+                                <div class="mini-metric-value" id="maintainabilityScore">0</div>
+                                <div class="mini-metric-label">🔧 Maintainability</div>
+                            </div>
+                            <div class="mini-metric">
+                                <div class="mini-metric-value" id="coverageScore">0</div>
+                                <div class="mini-metric-label">📊 Coverage</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Tabs -->
+                    <div class="analysis-tabs">
+                        <button class="tab-btn active" onclick="showTab('staticAnalysis')">Static Analysis</button>
+                        <button class="tab-btn" onclick="showTab('securityAudit')">Security Audit</button>
+                        <button class="tab-btn" onclick="showTab('testResults')">Test Results</button>
+                        <button class="tab-btn" onclick="showTab('aiInsights')">AI Insights</button>
+                    </div>
+
+                    <!-- Tab Contents -->
+                    <div class="tab-content active" id="staticAnalysis">
+                        <h3>📋 Static Code Analysis</h3>
+                        <div id="staticAnalysisResults"></div>
+                    </div>
+
+                    <div class="tab-content" id="securityAudit">
+                        <h3>🔒 Security Vulnerability Audit</h3>
+                        <div id="securityAuditResults"></div>
+                    </div>
+
+                    <div class="tab-content" id="testResults">
+                        <h3>✅ Automated Test Execution Results</h3>
+                        <div class="test-summary" id="testSummary"></div>
+                        <div id="testExecutionResults"></div>
+                    </div>
+
+                    <div class="tab-content" id="aiInsights">
+                        <h3>🤖 AI-Powered Insights & Recommendations</h3>
+                        <div id="aiInsightsResults"></div>
+                    </div>
+
+                    <!-- Export Section -->
+                    <div class="action-center">
+                        <button class="btn-primary btn-large" onclick="exportSTQAReport()">
+                            📥 Export ST&QA Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div class="modal" id="loadingModal">
+        <div class="modal-content">
+            <div class="loader"></div>
+            <h3 id="loadingTitle">Analyzing Your Code...</h3>
+            <p id="loadingStatus">Initializing analysis engine...</p>
+            <div class="progress-steps">
+                <div class="progress-step" id="step1">
+                    <span class="step-number">1</span>
+                    <span class="step-label">Analyzing</span>
+                </div>
+                <div class="progress-step" id="step2">
+                    <span class="step-number">2</span>
+                    <span class="step-label">Testing</span>
+                </div>
+                <div class="progress-step" id="step3">
+                    <span class="step-number">3</span>
+                    <span class="step-label">Scoring</span>
+                </div>
+                <div class="progress-step" id="step4">
+                    <span class="step-number">4</span>
+                    <span class="step-label">Complete</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="ai-analyzer.js"></script>
+    <script src="test-runner.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
